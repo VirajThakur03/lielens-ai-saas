@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LieLens Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at top right, #0e2d3f, transparent 40%),
+                        radial-gradient(circle at left, #2b1235, transparent 45%),
+                        #090b12;
+            color: #e5e7eb;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-md rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg p-8">
+        <h1 class="text-2xl font-bold mb-2">Sign in to LieLens</h1>
+        <p class="text-sm text-slate-300 mb-6">AI text risk intelligence dashboard</p>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="text-sm text-slate-300">Username</label>
+                <input name="username" type="text" class="mt-1 w-full rounded-lg bg-slate-900/70 border border-slate-700 px-3 py-2 outline-none focus:border-cyan-400" />
+            </div>
+            <div>
+                <label class="text-sm text-slate-300">Password</label>
+                <input name="password" type="password" class="mt-1 w-full rounded-lg bg-slate-900/70 border border-slate-700 px-3 py-2 outline-none focus:border-cyan-400" />
+            </div>
+            {% if form.errors %}
+            <p class="text-sm text-rose-300">Invalid credentials. Try again.</p>
+            {% endif %}
+            <button class="w-full rounded-lg bg-cyan-400 text-black font-semibold py-2 hover:bg-cyan-300 transition" type="submit">
+                Login
+            </button>
+        </form>
+        <p class="text-sm text-slate-300 mt-3">
+            Forgot password?
+            <a href="/accounts/password_reset/" class="text-cyan-300 hover:text-cyan-200 underline">Reset it</a>
+        </p>
+        <p class="text-sm text-slate-300 mt-5">
+            New user?
+            <a href="/accounts/register/" class="text-cyan-300 hover:text-cyan-200 underline">Create account</a>
+        </p>
+    </div>
+</body>
+</html>
