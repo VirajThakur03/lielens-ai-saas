@@ -1,90 +1,519 @@
-# LieLens SaaS (Django + Tailwind)
+# 🚀 LieLens – AI Writing Risk Intelligence SaaS
 
-Production-oriented scaffold for an AI credibility intelligence SaaS.
+LieLens is a full-stack AI-powered writing risk and credibility intelligence platform that analyzes professional communication for exaggeration, emotional instability, and linguistic risk patterns.
 
-## Architecture
+It provides explainable AI scoring, token-level heatmap visualization, transparent contribution breakdown, SaaS-grade usage enforcement, async processing architecture, and API-based access.
 
-- `core/`: central settings, URLs, middleware, Celery bootstrap
-- `apps/accounts`: registration, JWT login, profile + plan state
-- `apps/analysis`: submission APIs, async processing, report generation
-- `apps/billing`: Stripe checkout + webhook, usage reset task
-- `apps/dashboard`: premium dark-theme dashboard template
-- `services/`: feature extraction, ML scoring, risk engine, suggestions, PDF
+This project demonstrates production-oriented backend engineering, hybrid NLP + ML scoring, scalable async infrastructure, and modern SaaS system design.
 
-## Key flow implemented
+---
 
-1. User registers (`/api/v1/accounts/register/`)
-2. User logs in via JWT (`/api/v1/accounts/token/`)
-3. User submits text (`POST /api/v1/analysis/submissions/`)
-4. Plan enforcement middleware checks monthly usage
-5. Celery processes submission asynchronously
-6. Feature extraction + ML probability + hybrid risk score computed
-7. Suggestions and PDF report generated and stored under `media/reports/`
-8. Dashboard renders usage + history (`/dashboard/`)
-9. Soft AI Rewriter can transform completed submissions into professional wording
+## 🌟 Why LieLens?
 
-## Local setup (venv)
+Professional writing often sounds confident — but can unintentionally appear exaggerated, emotionally unstable, or low in credibility.
 
-```powershell
-pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+LieLens analyzes *how* something is written (not whether it is factually true) and helps users:
+
+- Reduce exaggerated claims  
+- Improve professional tone  
+- Add measurable credibility  
+- Understand linguistic risk signals  
+- Track writing improvement over time  
+
+---
+
+# ✨ Core Capabilities
+
+## 🔍 Writing Risk Analysis
+
+- Accepts pasted text or uploaded documents:
+  - `.txt`
+  - `.md`
+  - `.pdf`
+  - `.docx`
+- Detects writing-risk patterns (not lie detection)
+- Generates explainable scores:
+  - Confidence
+  - Exaggeration Risk
+  - Credibility
+  - Emotional Intensity
+  - Final Risk Score
+- Hybrid scoring engine:
+  - Rule-based NLP feature extraction
+  - Logistic Regression ML classifier
+
+---
+
+## 🧠 Explainable AI
+
+LieLens emphasizes transparency.
+
+- Token-level heatmap highlighting:
+  - 🔴 Red → Exaggeration / absolute claims
+  - 🟡 Yellow → Emotional spikes
+  - 🔵 Blue → Passive voice
+- Hover tooltips explain why words are flagged
+- Contribution breakdown panel shows influence of:
+  - Superlative ratio
+  - Certainty word ratio
+  - Sentiment volatility
+  - ML probability contribution
+
+No black-box scoring.
+
+---
+
+## ✍️ Writing Improvement Engine
+
+- Actionable suggestions such as:
+  - Reduce absolute claims
+  - Add measurable achievements
+  - Improve tone clarity
+- Soft AI Rewriter:
+  - Rule-based professional rewrite (default)
+  - Optional LLM mode (if configured)
+
+---
+
+## 📊 Comparison Analytics
+
+- Compare two analyses
+- View delta changes in:
+  - Risk
+  - Credibility
+  - Emotional intensity
+- Improvement summary insights
+- Trend tracking over time
+
+---
+
+## 📄 Reports
+
+- Generate downloadable PDF reports
+- Includes:
+  - Score breakdown
+  - Radar visualization
+  - Summary insights
+  - Suggestions
+
+---
+
+# 🔑 API Platform Mode
+
+LieLens supports programmatic access.
+
+Users can:
+
+- Create/revoke API keys
+- Track usage per key
+- Analyze content via:
+
+```
+POST /api/v1/analysis/analyze/
 ```
 
-Run worker in another terminal:
+Includes:
 
-```powershell
-celery -A core worker -l info
-celery -A core beat -l info
+- API-key authentication
+- Usage tracking
+- Rate limiting
+- Plan-based enforcement
+
+This enables LieLens to function as a writing-risk analysis API platform.
+
+---
+
+# 💼 SaaS Infrastructure
+
+LieLens includes production-ready SaaS architecture components:
+
+- User authentication (register/login/logout/reset)
+- Plan-based usage enforcement
+- Monthly usage tracking
+- Stripe checkout + webhook scaffolding
+- Celery async processing pipeline
+- Monthly automated insight email task
+- Dockerized multi-service architecture
+
+---
+
+# 🏗 Architecture Overview
+
+## System Design
+
+User → Django REST API → Plan Enforcement → Async Task (Celery)  
+→ Feature Extraction → ML Scoring → Result Storage → Dashboard Rendering
+
+## Services
+
+- Web (Django)
+- PostgreSQL
+- Redis
+- Celery Worker
+- Celery Beat (scheduled tasks)
+
+---
+
+# 🛠 Tech Stack
+
+## Backend
+- Django
+- Django REST Framework
+- PostgreSQL
+- Redis
+- Celery (async tasks + scheduled jobs)
+
+## AI Layer
+- NLP feature extraction
+- Logistic Regression classifier
+- Hybrid rule + ML scoring engine
+- Explainable scoring pipeline
+
+## Infrastructure
+- Docker & Docker Compose
+- Stripe billing scaffold
+- CI workflow
+- Production-ready settings scaffold
+
+---
+
+# 🧪 Async Processing
+
+Heavy analysis tasks are processed asynchronously using Celery to:
+
+- Reduce request latency
+- Improve scalability
+- Isolate worker failures
+- Support future horizontal scaling
+
+Celery Beat powers scheduled jobs such as:
+
+- Monthly usage reset
+- Monthly insight report emails
+
+---
+
+# 🔐 Security & Controls
+
+- JWT authentication
+- Plan-based access control
+- API-key authentication
+- Rate limiting
+- Webhook verification scaffold
+- Input validation & structured error handling
+
+---
+
+# 📈 Engineering Focus
+
+LieLens was built with emphasis on:
+
+- Scalable backend architecture
+- Clean separation of concerns
+- Service-layer business logic
+- Async task orchestration
+- Explainable AI design
+- API-first extensibility
+- SaaS billing architecture
+- Production-ready Docker setup
+
+---
+
+# 🧭 Roadmap
+
+Future enhancements may include:
+
+- Model versioning & reprocessing
+- Observability dashboard
+- Performance metrics monitoring
+- Team/workspace support
+- Advanced LLM-powered rewrite engine
+
+---
+
+# 🎯 Project Purpose
+
+This project demonstrates:
+
+- Full-stack SaaS system design
+- Hybrid NLP + ML implementation
+- Async processing architecture
+- API platform development
+- Explainable AI principles
+- Production-grade backend engineering
+
+---
+
+# ⚠ Disclaimer
+
+LieLens does **not** detect factual truth or deception.
+
+It analyzes linguistic patterns and writing-risk signals based on style, tone, and structure.
+
+---
+
+# 👨‍💻 Author
+
+Built as a production-oriented AI SaaS engineering project.
+
+---
+# 🚀 LieLens – AI Writing Risk Intelligence SaaS
+
+LieLens is a full-stack AI-powered writing risk and credibility intelligence platform that analyzes professional communication for exaggeration, emotional instability, and linguistic risk patterns.
+
+It provides explainable AI scoring, token-level heatmap visualization, transparent contribution breakdown, SaaS-grade usage enforcement, async processing architecture, and API-based access.
+
+This project demonstrates production-oriented backend engineering, hybrid NLP + ML scoring, scalable async infrastructure, and modern SaaS system design.
+
+---
+
+## 🌟 Why LieLens?
+
+Professional writing often sounds confident — but can unintentionally appear exaggerated, emotionally unstable, or low in credibility.
+
+LieLens analyzes *how* something is written (not whether it is factually true) and helps users:
+
+- Reduce exaggerated claims  
+- Improve professional tone  
+- Add measurable credibility  
+- Understand linguistic risk signals  
+- Track writing improvement over time  
+
+---
+
+# ✨ Core Capabilities
+
+## 🔍 Writing Risk Analysis
+
+- Accepts pasted text or uploaded documents:
+  - `.txt`
+  - `.md`
+  - `.pdf`
+  - `.docx`
+- Detects writing-risk patterns (not lie detection)
+- Generates explainable scores:
+  - Confidence
+  - Exaggeration Risk
+  - Credibility
+  - Emotional Intensity
+  - Final Risk Score
+- Hybrid scoring engine:
+  - Rule-based NLP feature extraction
+  - Logistic Regression ML classifier
+
+---
+
+## 🧠 Explainable AI
+
+LieLens emphasizes transparency.
+
+- Token-level heatmap highlighting:
+  - 🔴 Red → Exaggeration / absolute claims
+  - 🟡 Yellow → Emotional spikes
+  - 🔵 Blue → Passive voice
+- Hover tooltips explain why words are flagged
+- Contribution breakdown panel shows influence of:
+  - Superlative ratio
+  - Certainty word ratio
+  - Sentiment volatility
+  - ML probability contribution
+
+No black-box scoring.
+
+---
+
+## ✍️ Writing Improvement Engine
+
+- Actionable suggestions such as:
+  - Reduce absolute claims
+  - Add measurable achievements
+  - Improve tone clarity
+- Soft AI Rewriter:
+  - Rule-based professional rewrite (default)
+  - Optional LLM mode (if configured)
+
+---
+
+## 📊 Comparison Analytics
+
+- Compare two analyses
+- View delta changes in:
+  - Risk
+  - Credibility
+  - Emotional intensity
+- Improvement summary insights
+- Trend tracking over time
+
+---
+
+## 📄 Reports
+
+- Generate downloadable PDF reports
+- Includes:
+  - Score breakdown
+  - Radar visualization
+  - Summary insights
+  - Suggestions
+
+---
+
+# 🔑 API Platform Mode
+
+LieLens supports programmatic access.
+
+Users can:
+
+- Create/revoke API keys
+- Track usage per key
+- Analyze content via:
+
+```
+POST /api/v1/analysis/analyze/
 ```
 
-## Test suite
+Includes:
 
-```powershell
-python manage.py check
-python manage.py test apps.accounts apps.analysis apps.dashboard
-```
+- API-key authentication
+- Usage tracking
+- Rate limiting
+- Plan-based enforcement
 
-CI workflow is available at `.github/workflows/ci.yml` and runs:
-- migration drift check
-- Django system checks
-- app test suites
+This enables LieLens to function as a writing-risk analysis API platform.
 
-## Docker setup
+---
 
-```powershell
-copy .env.example .env
-docker compose up --build
-```
+# 💼 SaaS Infrastructure
 
-Then run migrations in the web container:
+LieLens includes production-ready SaaS architecture components:
 
-```powershell
-docker compose exec web python manage.py migrate
-```
+- User authentication (register/login/logout/reset)
+- Plan-based usage enforcement
+- Monthly usage tracking
+- Stripe checkout + webhook scaffolding
+- Celery async processing pipeline
+- Monthly automated insight email task
+- Dockerized multi-service architecture
 
-## Production settings scaffold
+---
 
-Use `core.settings_production` for hardened defaults:
+# 🏗 Architecture Overview
 
-```powershell
-$env:DJANGO_SETTINGS_MODULE="core.settings_production"
-python manage.py check --deploy
-```
+## System Design
 
-Important production envs:
-- `DJANGO_ALLOWED_HOSTS`
-- `DJANGO_SECRET_KEY`
-- `POSTGRES_*`
-- `CELERY_BROKER_URL`, `CELERY_RESULT_BACKEND`
-- `REDIS_CACHE_URL`
-- `SECURE_SSL_REDIRECT=1`
+User → Django REST API → Plan Enforcement → Async Task (Celery)  
+→ Feature Extraction → ML Scoring → Result Storage → Dashboard Rendering
 
-## Notes
+## Services
 
-- Stripe fields are fully wired but require real test keys and price IDs.
-- Monthly reset logic exists as a Celery task (`reset_monthly_usage_task`) and should be scheduled with `django-celery-beat`.
-- Frontend uses Tailwind CDN + Chart.js + GSAP for a polished dashboard baseline.
-- Rewriter mode defaults to rule-based (`LIELENS_REWRITE_MODE=rule`) with optional LLM mode if OpenAI SDK/key are configured.
+- Web (Django)
+- PostgreSQL
+- Redis
+- Celery Worker
+- Celery Beat (scheduled tasks)
+
+---
+
+# 🛠 Tech Stack
+
+## Backend
+- Django
+- Django REST Framework
+- PostgreSQL
+- Redis
+- Celery (async tasks + scheduled jobs)
+
+## AI Layer
+- NLP feature extraction
+- Logistic Regression classifier
+- Hybrid rule + ML scoring engine
+- Explainable scoring pipeline
+
+## Infrastructure
+- Docker & Docker Compose
+- Stripe billing scaffold
+- CI workflow
+- Production-ready settings scaffold
+
+---
+
+# 🧪 Async Processing
+
+Heavy analysis tasks are processed asynchronously using Celery to:
+
+- Reduce request latency
+- Improve scalability
+- Isolate worker failures
+- Support future horizontal scaling
+
+Celery Beat powers scheduled jobs such as:
+
+- Monthly usage reset
+- Monthly insight report emails
+
+---
+
+# 🔐 Security & Controls
+
+- JWT authentication
+- Plan-based access control
+- API-key authentication
+- Rate limiting
+- Webhook verification scaffold
+- Input validation & structured error handling
+
+---
+
+# 📈 Engineering Focus
+
+LieLens was built with emphasis on:
+
+- Scalable backend architecture
+- Clean separation of concerns
+- Service-layer business logic
+- Async task orchestration
+- Explainable AI design
+- API-first extensibility
+- SaaS billing architecture
+- Production-ready Docker setup
+
+---
+
+# 🧭 Roadmap
+
+Future enhancements may include:
+
+- Model versioning & reprocessing
+- Observability dashboard
+- Performance metrics monitoring
+- Team/workspace support
+- Advanced LLM-powered rewrite engine
+
+---
+
+# 🎯 Project Purpose
+
+This project demonstrates:
+
+- Full-stack SaaS system design
+- Hybrid NLP + ML implementation
+- Async processing architecture
+- API platform development
+- Explainable AI principles
+- Production-grade backend engineering
+
+---
+
+# ⚠ Disclaimer
+
+LieLens does **not** detect factual truth or deception.
+
+It analyzes linguistic patterns and writing-risk signals based on style, tone, and structure.
+
+---
+
+# 👨‍💻 Author
+
+Built as a production-oriented AI SaaS engineering project.
+
+---
+V_r_j
